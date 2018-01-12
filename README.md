@@ -1,10 +1,27 @@
+<p align="center">
+<a href="http://kitura.io/">
+<img src="https://raw.githubusercontent.com/IBM-Swift/Kitura/master/Sources/Kitura/resources/kitura-bird.svg?sanitize=true" height="100" alt="Kitura">
+</a>
+</p>
+
+
+<p align="center">
+<a href="http://www.kitura.io/">
+<img src="https://img.shields.io/badge/docs-kitura.io-1FBCE4.svg" alt="Docs">
+</a>
+<a href="https://travis-ci.org/IBM-Swift/Swift-Kuery">
+<img src="https://travis-ci.org/IBM-Swift/Swift-Kuery.svg?branch=master" alt="Build Status - Master">
+</a>
+<img src="https://img.shields.io/badge/os-Mac%20OS%20X-green.svg?style=flat" alt="Mac OS X">
+<img src="https://img.shields.io/badge/os-linux-green.svg?style=flat" alt="Linux">
+<img src="https://img.shields.io/badge/license-Apache2-blue.svg?style=flat" alt="Apache 2">
+<a href="http://swift-at-ibm-slack.mybluemix.net/">
+<img src="http://swift-at-ibm-slack.mybluemix.net/badge.svg" alt="Slack Status">
+</a>
+</p>
+
 # Swift-Kuery
 SQL database abstraction layer
-
-[![Build Status - Master](https://travis-ci.org/IBM-Swift/Swift-Kuery.svg?branch=master)](https://travis-ci.org/IBM-Swift/Swift-Kuery)
-![Mac OS X](https://img.shields.io/badge/os-Mac%20OS%20X-green.svg?style=flat)
-![Linux](https://img.shields.io/badge/os-linux-green.svg?style=flat)
-![Apache 2](https://img.shields.io/badge/license-Apache2-blue.svg?style=flat)
 
 ## Summary
 Swift-Kuery is a pluggable SQL database driver/SDK abstraction layer. Its main idea is to unify the APIs to the various relational databases, providing a Swifty yet SQL-like API.
@@ -14,7 +31,7 @@ While Swift-Kuery is not an Object-Relational Mapping (ORM), it provides a great
 Swift-Kuery is easy to learn, consumable framework that comes with a set of [implemented plugins](#list-of-plugins).
 
 ## Table of Contents
-* [Example](#example)
+* [Examples](#example)
 * [SQL Injection Prevention using Parameterization](#sql-injection-prevention-using-parameterization)
 * [Prepared Statements](#prepared-statements)
 * [Schema Management](#schema-management)
@@ -22,7 +39,11 @@ Swift-Kuery is easy to learn, consumable framework that comes with a set of [imp
 * [List of plugins](#list-of-plugins)
 * [License](#license)
 
-## Example
+## Examples
+A Swift-Kuery tutorial on adding a PostgreSQL database to a foodTracker app is available [here](https://github.com/IBM/FoodTrackerBackend/blob/master/AddDatabase.md).
+
+An example ToDo list application, implementing Swift-Kuery, is available [here](https://github.com/IBM-Swift/iOSSampleKituraKit/tree/persistentiOSKituraKit).
+
 This example demonstrates how to execute an SQL query using Swift-Kuery and Swift-Kuery-PostgreSQL. It assumes there is a PostgreSQL server running on localhost:5432, that contains a table called Grades:
 
 ```
