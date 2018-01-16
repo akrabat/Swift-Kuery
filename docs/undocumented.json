@@ -20,13 +20,6 @@
       "symbol": "IndexColumnOrdered.table",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
-    },
-    {
-      "file": "/Users/andrewlees/git/Swift-Kuery/Sources/SwiftKuery/Table.swift",
-      "line": 22,
-      "symbol": "Table.columns",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
     }
   ],
   "source_directory": "/Users/andrewlees/git/Swift-Kuery"
