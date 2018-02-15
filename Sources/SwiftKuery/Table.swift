@@ -76,6 +76,7 @@ open class Table: Buildable {
                 _name = child.value as! String
             }
         }
+        /// TODO create function that implements this logic
         if columns.count == 0 {
             syntaxError += "No columns in the table. "
         }
@@ -86,7 +87,17 @@ open class Table: Buildable {
             syntaxError += "Table name not set. "
         }
     }
-    
+
+    /// Initialize an instance of Table with an array of columns
+
+    public required init(tableName: String, columns: [Column]) {
+      self._name = tableName
+      self.columns = columns
+      for column in columns {
+        column._table = self
+      }
+    }
+
     // MARK: String Representation
     /**
      Function to build a String representation for referencing a `Table` instance.
