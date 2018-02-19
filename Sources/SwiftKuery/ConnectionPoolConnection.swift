@@ -75,6 +75,7 @@ public class ConnectionPoolConnection: Connection {
     /// - Parameter onCompletion: The function to be called when the execution of the query has completed.
     public func execute(query: Query, onCompletion: @escaping ((QueryResult) -> ())) {
         guard let connection = connection else {
+            self.closeConnection()
             onCompletion(.error(QueryError.connection("Connection is disconnected")))
             return
         }
@@ -87,6 +88,7 @@ public class ConnectionPoolConnection: Connection {
     /// - Parameter onCompletion: The function to be called when the execution of the query has completed.
     public func execute(_ raw: String, onCompletion: @escaping ((QueryResult) -> ())) {
         guard let connection = connection else {
+            self.closeConnection()
             onCompletion(.error(QueryError.connection("Connection is disconnected")))
             return
         }
@@ -100,6 +102,7 @@ public class ConnectionPoolConnection: Connection {
     /// - Parameter onCompletion: The function to be called when the execution of the query has completed.
     public func execute(query: Query, parameters: [Any?], onCompletion: @escaping ((QueryResult) -> ())) {
         guard let connection = connection else {
+            self.closeConnection()
             onCompletion(.error(QueryError.connection("Connection is disconnected")))
             return
         }
@@ -113,6 +116,7 @@ public class ConnectionPoolConnection: Connection {
     /// - Parameter onCompletion: The function to be called when the execution of the query has completed.
     public func execute(_ raw: String, parameters: [Any?], onCompletion: @escaping ((QueryResult) -> ())) {
         guard let connection = connection else {
+            self.closeConnection()
             onCompletion(.error(QueryError.connection("Connection is disconnected")))
             return
         }
@@ -126,6 +130,7 @@ public class ConnectionPoolConnection: Connection {
     /// - Parameter onCompletion: The function to be called when the execution of the query has completed.
     public func execute(query: Query, parameters: [String:Any?], onCompletion: @escaping ((QueryResult) -> ())) {
         guard let connection = connection else {
+            self.closeConnection()
             onCompletion(.error(QueryError.connection("Connection is disconnected")))
             return
         }
@@ -139,6 +144,7 @@ public class ConnectionPoolConnection: Connection {
     /// - Parameter onCompletion: The function to be called when the execution of the query has completed.
     public func execute(_ raw: String, parameters: [String:Any?], onCompletion: @escaping ((QueryResult) -> ())) {
         guard let connection = connection else {
+            self.closeConnection()
             onCompletion(.error(QueryError.connection("Connection is disconnected")))
             return
         }
@@ -152,6 +158,7 @@ public class ConnectionPoolConnection: Connection {
     /// - Throws: QueryError.syntaxError if query build fails, or a database error if it fails to prepare statement.
     public func prepareStatement(_ query: Query) throws -> PreparedStatement {
         guard let connection = connection else {
+            self.closeConnection()
             throw QueryError.connection("Connection is disconnected")
         }
         return try connection.prepareStatement(query)
@@ -164,6 +171,7 @@ public class ConnectionPoolConnection: Connection {
     /// - Throws: QueryError.syntaxError if query build fails, or a database error if it fails to prepare statement.
     public func prepareStatement(_ raw: String) throws -> PreparedStatement {
         guard let connection = connection else {
+            self.closeConnection()
             throw QueryError.connection("Connection is disconnected")
         }
         return try connection.prepareStatement(raw)
@@ -175,6 +183,7 @@ public class ConnectionPoolConnection: Connection {
     /// - Parameter onCompletion: The function to be called when the execution has completed.
     public func execute(preparedStatement: PreparedStatement, onCompletion: @escaping ((QueryResult) -> ())) {
         guard let connection = connection else {
+            self.closeConnection()
             onCompletion(.error(QueryError.connection("Connection is disconnected")))
             return
         }
@@ -188,6 +197,7 @@ public class ConnectionPoolConnection: Connection {
     /// - Parameter onCompletion: The function to be called when the execution has completed.
     public func execute(preparedStatement: PreparedStatement, parameters: [Any?], onCompletion: @escaping ((QueryResult) -> ())) {
         guard let connection = connection else {
+            self.closeConnection()
             onCompletion(.error(QueryError.connection("Connection is disconnected")))
             return
         }
@@ -201,6 +211,7 @@ public class ConnectionPoolConnection: Connection {
     /// - Parameter onCompletion: The function to be called when the execution has completed.
     public func execute(preparedStatement: PreparedStatement, parameters: [String:Any?], onCompletion: @escaping ((QueryResult) -> ())) {
         guard let connection = connection else {
+            self.closeConnection()
             onCompletion(.error(QueryError.connection("Connection is disconnected")))
             return
         }
@@ -213,6 +224,7 @@ public class ConnectionPoolConnection: Connection {
     /// - Parameter onCompletion: The function to be called when the execution has completed.
     public func release(preparedStatement: PreparedStatement, onCompletion: @escaping ((QueryResult) -> ())) {
         guard let connection = connection else {
+            self.closeConnection()
             onCompletion(.error(QueryError.connection("Connection is disconnected")))
             return
         }
@@ -227,8 +239,8 @@ public class ConnectionPoolConnection: Connection {
     public func descriptionOf(query: Query) throws -> String {
         if let connection = connection {
             return try connection.descriptionOf(query: query)
-        }
-        else {
+        } else {
+            self.closeConnection()
             throw QueryError.connection("No connection to the database")
         }
     }
@@ -238,6 +250,7 @@ public class ConnectionPoolConnection: Connection {
     /// - Parameter onCompletion: The function to be called when the execution of start transaction command has completed.
     public func startTransaction(onCompletion: @escaping ((QueryResult) -> ())) {
         guard let connection = connection else {
+            self.closeConnection()
             onCompletion(.error(QueryError.connection("Connection is disconnected")))
             return
         }
@@ -249,6 +262,7 @@ public class ConnectionPoolConnection: Connection {
     /// - Parameter onCompletion: The function to be called when the execution of commit transaction command has completed.
     public func commit(onCompletion: @escaping ((QueryResult) -> ())) {
         guard let connection = connection else {
+            self.closeConnection()
             onCompletion(.error(QueryError.connection("Connection is disconnected")))
             return
         }
@@ -260,6 +274,7 @@ public class ConnectionPoolConnection: Connection {
     /// - Parameter onCompletion: The function to be called when the execution of rolback transaction command has completed.
     public func rollback(onCompletion: @escaping ((QueryResult) -> ())) {
         guard let connection = connection else {
+            self.closeConnection()
             onCompletion(.error(QueryError.connection("Connection is disconnected")))
             return
         }
@@ -272,6 +287,7 @@ public class ConnectionPoolConnection: Connection {
     /// - Parameter onCompletion: The function to be called when the execution of create savepoint command has completed.
     public func create(savepoint: String, onCompletion: @escaping ((QueryResult) -> ())) {
         guard let connection = connection else {
+            self.closeConnection()
             onCompletion(.error(QueryError.connection("Connection is disconnected")))
             return
         }
@@ -284,6 +300,7 @@ public class ConnectionPoolConnection: Connection {
     /// - Parameter onCompletion: The function to be called when the execution of rolback transaction command has completed.
     public func rollback(to savepoint: String, onCompletion: @escaping ((QueryResult) -> ())) {
         guard let connection = connection else {
+            self.closeConnection()
             onCompletion(.error(QueryError.connection("Connection is disconnected")))
             return
         }
@@ -296,6 +313,7 @@ public class ConnectionPoolConnection: Connection {
     /// - Parameter onCompletion: The function to be called when the execution of release savepoint command has completed.
     public func release(savepoint: String, onCompletion: @escaping ((QueryResult) -> ())) {
         guard let connection = connection else {
+            self.closeConnection()
             onCompletion(.error(QueryError.connection("Connection is disconnected")))
             return
         }

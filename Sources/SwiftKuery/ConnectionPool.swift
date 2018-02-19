@@ -95,7 +95,9 @@ public class ConnectionPool {
     }
     
     func release(connection: Connection) {
-        give(connection)
+        lockPoolLock()
+        releaser(connection)
+        unlockPoolLock()
     }
     
     /// Release all the connections in the pool by calling connectionReleaser closure on each connection,
@@ -119,14 +121,10 @@ public class ConnectionPool {
         }
         // We have permission to take an item - do so in a thread-safe way
         lockPoolLock()
-        if (pool.count < 1) {
-            unlockPoolLock()
-            return nil
-        }
         item = pool[0]
         pool.removeFirst()
         // If we took the last item, we can choose to grow the pool
-        if (pool.count == 0 && capacity < limit) {
+        if (pool.count == 0 || capacity < limit) {
             capacity += 1
             if let newItem = generator() {
                 pool.append(newItem)

@@ -22,6 +22,7 @@ class TestQueryResult: XCTestCase {
     static var allTests: [(String, (TestQueryResult) -> () throws -> Void)] {
         return [
             ("testQueryResult", testQueryResult),
+            ("testConnections", testConnections),
         ]
     }
     
@@ -31,6 +32,22 @@ class TestQueryResult: XCTestCase {
         let c = Column("fruit")
         
         let tableName = "table"
+    }
+    
+    func testConnections () {
+        let t = MyTable()
+        let query = Select(from: t)
+        
+        let connection = createConnection(.returnValue)
+        connection.connect { (error) in
+            print(error)
+        }
+        connection.execute(query: query) { queryResult in
+            //XCTAssertTrue(queryResult.success, "Query result should be \"success\"")
+        }
+        connection.closeConnection()
+        print(connection.isConnected)
+        XCTAssertFalse(connection.isConnected, "Connection should be false to indicate no connection")
     }
     
     func testQueryResult () {
